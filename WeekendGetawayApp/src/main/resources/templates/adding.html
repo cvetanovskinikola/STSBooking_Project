@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8">
+<title>WeekendGetaway</title>
+<!-- <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous"> -->
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">WeekendGetaway	Homepage</a>
+			</div>
+		</div>
+	</nav>
+
+<br>
+<br>
+	<!-- Create HTML registration form -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+
+				<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info">You've successfully added
+					a new destination to the app</div>
+				</div> 
+			<!--	<div th:if="${param.error}">
+					<div class="alert alert-info">Check your input info carefully</div>
+				</div> -->
+
+				<h1>Add a new Destination</h1>
+
+				<form th:action="@{/admin/adding}" method="post" th:object="${destination}">
+					<div class="form-group">
+						<label class="control-label" for="country"> Country </label>
+						<input type="text" id="Country" class="form-control" th:field="*{country}"
+							 />
+					</div> 
+
+					<div class="form-group">
+						<label class="control-label" for="city"> City </label> <input
+							type="text" id="city" class="form-control" th:field="*{city}"
+							required autofocus="autofocus" />
+					</div>
+            
+                    <div class="form-group">
+						<label class="control-label" for="travel_price"> Travel Price </label>
+						<input type="number" id="travel_price" class="form-control" th:field="*{travel_price}"
+							 /> 
+					</div> 
+					
+                    
+					<div class="form-group">
+						<label class="control-label"for="dateGoing">Date of going</label>
+                        <input required class="form-control" th:field="*{dateGoing}" type="date" id="dateGoing" name="dateGoing">
+					
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label"for="dateBack">Date of coming back</label>
+                        <input required class="form-control" th:field="*{dateBack}" type="date" id="dateBack" name="dateBack">
+					
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Submit</button>
+						<span><a href="/" th:href="@{/destinations}">Check destinations</a></span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

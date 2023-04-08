@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" 
+			type="text/css" 
+			href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
+			crossorigin="anonymous" />
+			<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+	    <meta charset="utf-8"/>
+	    <title>WeekendGetaway</title>
+	    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+	</head>
+	<body>
+	<div class="container">
+	<h3>Add the hotel for the Destination</h3>
+		<form action="#" th:action="@{/admin/destinations/destination/addHotel}" th:object="${hotel}" method="post">
+		    <table class="table table-bordered table-striped" border="1">
+		        
+		        <tr>
+		            <td><label th:text="'Hotel name'" /></td>
+		            <td><input type="text" th:field="*{hotel_name}" /></td>
+		        </tr>
+		         <tr>
+		            <td><label th:text="'Hotel rating'" /></td>
+		            <td><input type="text" th:field="*{hotel_rating}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Available single rooms'" /></td>
+		            <td><input type="number" th:field="*{singlePersonRoom}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Available two person rooms'" /></td>
+		            <td><input type="number" th:field="*{twoPersonRoom}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Available three person rooms'" /></td>
+		            <td><input type="number" th:field="*{threePersonRoom}" /></td>
+		        </tr>
+		        <tr>
+		      <!--  <form id="fileUploadForm">
+			<div class="form-group">
+				<input type="file" class="form-control-file border" name="file">
+			</div>
+		</form> -->
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Available family rooms'" /></td>
+		            <td><input type="number" th:field="*{familyRoom}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Single room price'" /></td>
+		            <td><input type="number" th:field="*{singlePrice}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Double person price'" /></td>
+		            <td><input type="number" th:field="*{doublePrice}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Three person price'" /></td>
+		            <td><input type="number" th:field="*{triplePrice}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Family room price'" /></td>
+		            <td><input type="number" th:field="*{familyPrice}" /></td>
+		        </tr>
+		        <tr>
+		            <td><label th:text="'Hotel link'" /></td>
+		            <td><input type="text" th:field="*{hotel_link}" /></td>
+		        </tr>
+		        <tr>
+		            <td><input type="submit" value="Submit" /></td>
+		        </tr>
+		    </table>
+		    <input type="hidden" th:field="*{id}"/>
+		    <input type="hidden" th:field="*{destination}" />
+		   
+		</form>
+	</div>
+	</body>
+</html>

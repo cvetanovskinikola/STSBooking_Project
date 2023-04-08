@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!--	<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
+			crossorigin="anonymous" /> -->
+			<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+			<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+    <meta charset="utf-8"/>
+    <title>WeekendGetaway</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Homepage</a>
+				<a class="navbar-brand" th:href="@{/destinations}"> Destinations</a>
+				<a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a>
+				<a class="navbar-brand" th:href="@{user/reservations}">See your reservations</a>
+				<a sec:authorize="isAuthenticated()"><a class="navbar-brand" th:href="@{/logout}">Logout</a></a>
+			</div>
+			</div>
+	</nav>
+
+<br>
+<br>
+<br>
+<br>
+
+	<div  class="container">
+	
+	<table class="table table-bordered table-striped" id="autorsTable">
+	<thead>
+	<th>Country</th>
+	<th>City</th>
+	<th>Check in</th>
+	<th>Check out</th>
+	<th>Hotel</th>
+	<th>Guests</th>
+	<th>Price in eur</th>
+	<th>Actions</th>
+	</thead>
+		<tbody>
+		    <tr th:each="reservation: ${reservations}">
+		        <td th:text="${reservation.destination.country}" />
+		        <td th:text="${reservation.destination.city}" />
+		        <td th:text="${reservation.destination.dateGoing}" />
+		        <td th:text="${reservation.destination.dateBack}" />
+		        <td th:text="${reservation.destination.hotel.hotel_name}" />
+		        <td th:text="${reservation.guests}" />
+		        <td th:text="${reservation.finalPrice}" />
+		        <td>
+		        <a th:href="@{/reservation/cancel(id=${reservation.id})}" class="btn btn-primary" onclick="proceed()">Cancel reservation</a>
+		        </td>
+		    </tr>
+		</tbody>
+	</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#autorsTable").DataTable();
+			})
+		</script>
+		<script type="text/javascript">
+ function proceed(){
+	var confirmed = confirm("Are you sure you want to cancel the reservation?");
+	 if (confirmed){ 
+		console.log("Called function");
+          return true; }
+       else {
+	console.log("Function cancelled");
+           return false; }
+}
+ </script >
+</body>
+</html>

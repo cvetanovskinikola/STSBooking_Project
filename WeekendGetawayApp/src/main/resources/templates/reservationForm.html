@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeekendGetaway</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+<body>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">WeekendGetaway	Homepage</a>
+			</div>
+		</div>
+	</nav>
+
+<br>
+<br>
+<br>
+<br>
+<div class = "form">
+	<div class = "content">
+	<div th:if="${param.error}">
+					<div class="alert alert-info">Number of guests must be between 1 and 5</div>
+				</div> 
+		<form action="#" th:action="@{/reserveDestination}" th:object="${reservation}" th:method="post">
+           <!-- 	<div class="input-control">				
+          
+				
+            	</div>  -->
+   				
+             	
+   				<label>Choose a room for the stay:</label>
+   				<select name="roomType" id="roomType">
+                <option name="singlePersonRoom"  th:field="*{roomType}" value="1" >Room for one</option>
+                <option name="twoPersonRoom"  th:field="*{roomType}" value="2" >Room for two</option>
+                <option name="threePersonRoom" th:field="*{roomType}" value="3" >Room for three</option>
+                <option name="familyRoom" th:field="*{roomType}" value="4" >Room for up to five</option>
+                </select> 
+               <!-- <input name="roomType" type="number" th:field="*{roomType}"/>Room Type -->
+  <br><br>
+  
+                <label>Number of guests:</label>
+   				<select name="guests" id="guests">
+                <option name="guests"  th:field="*{guests}" value="1" >One guest</option>
+                <option name="guests"  th:field="*{guests}" value="2" >Two guests</option>
+                <option name="guests" th:field="*{guests}" value="3" >Three guests</option>
+                <option name="guests" th:field="*{guests}" value="4" >Four guests</option>
+                <option name="guests" th:field="*{guests}" value="5" >Five guests</option>
+                </select> 
+             <!--   <input name="guests" type="number" th:field="*{guests}"/>Number of guests
+                <span th:if="${#fields.hasErrors('guests')}" th:errors="*guests">Number of guests must be between 1 and 5</span> -->
+   				<!--  </br>
+   				</br>
+   				<div class="input-control">
+   				<input name="singlePersonRoom" type="radio" th:field ="*{destination.hotel.singlePersonRoom}" value="1" onclick="setSingleFee"/> Room for one person
+   				</br>
+   				</br>
+   				<input name="twoPersonRoom" type="radio" th:field ="*{destination.hotel.twoPersonRoom}" value="2" onclick="setTwoFee()"/> Room for two people
+   				</br>
+   				</br>
+   				<input name="threePersonRoom" type="radio" th:field ="*{destination.hotel.threePersonRoom}" value="3" onclick="setTripleFee()"/> Room for three people
+   				</br>
+   				</br>
+   				<input name="familyRoom" type="radio" th:field ="*{destination.hotel.familyRoom}" value="4" onclick="setFamilyFee()"/> Room for a family of max.5 people
+   				<div id="periodError"></div> -->
+   				<!-- <div class="error"></div> ->>
+   			<!--	</div>
+   				</div> -->
+   				<input id="sub" type="submit" value="Book Now">
+   				<input type="hidden" th:field="*{id}"/> 
+		    <input type="hidden" th:field="*{destination}" />
+  </form>
+  </div>
+ </div>
+ <br>
+ <p><b>**NOTE**</b></p>
+ <p><b> When you make a reservation, you can cancel it one week before the trip realization and get a FULL REFUND!</b></p>
+ <p><b> When the trip is within a week of realization, there are no cancellations.</b></p>
+ <p><b> Hotel extras like spa & wellness, food, drinks etc.. are not included in the price!!</b></p>
+ <p><b> If you wish to use the amendments the hotel offers, please contact the hotel staff.</b></p>
+
+
+ <script src="/js/reservation.js"></script >
+<script type="text/javascript">
+ function proceed(){
+	 if (confirm('Are you sure you want to cancel the reservation?'))
+          return true;
+       else
+           return false;
+}
+ </script > 
+</body>
+</html>
