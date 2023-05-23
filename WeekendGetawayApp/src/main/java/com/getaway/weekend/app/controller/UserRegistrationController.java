@@ -40,8 +40,7 @@ public class UserRegistrationController {
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto urd,BindingResult br) {	
 		if(br.hasErrors()) {	
-			throw new WrongInputInfoException("We couldn't register your account.Please make sure your name and last name contain at least 4 characters, you are over 18 years old,"
-					+ "your password contains at least 7 characters, your credit card number and your email are valid.");
+			throw new WrongInputInfoException();
 		}
 		
 		userService.saveUser(urd);

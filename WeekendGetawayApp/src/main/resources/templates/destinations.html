@@ -28,7 +28,7 @@
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Homepage</a>
 				<a class="navbar-brand" th:href="@{/destinations}"> Destinations</a>
-				<a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a>
+				<a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"><a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a></a>
 				<a class="navbar-brand" th:href="@{user/reservations}">See your reservations</a>
 				<a sec:authorize="isAuthenticated()"><a class="navbar-brand" th:href="@{/logout}">Logout</a></a>
 			</div>
@@ -54,8 +54,8 @@
 		    <tr th:each="destination: ${destinations}">
 		        <td th:text="${destination.country}" />
 		        <td th:text="${destination.city}" />
-		        <td th:text="${destination.dateGoing}" />
-		        <td th:text="${destination.dateBack}" />
+		        <td th:text="${#dates.format(destination.dateGoing, 'dd-MM-yyyy')}" />
+		        <td th:text="${#dates.format(destination.dateBack, 'dd-MM-yyyy')}" />
 		        <td>
 		        <a th:href="@{/destinations/destination(id=${destination.id})}" class="btn btn-primary">See Destination</a>
 		        </td>

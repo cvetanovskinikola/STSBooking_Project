@@ -2,11 +2,13 @@ package com.getaway.weekend.app.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.getaway.weekend.app.dto.DestinationDto;
@@ -54,6 +56,7 @@ public class DestinationService {
 		dd.setId(dest.getId());
 		return dest;
 	}
+	
 	public int getGuestsForDestById(Long id) {
 		int total=0;
 		for (Reservation res : dr.findById(id).get().getReservations()) {

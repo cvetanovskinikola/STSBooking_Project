@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
@@ -13,9 +15,9 @@ public class DestinationDto {
 	private Long id;
 	private String country;
 	private String city;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateGoing;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateBack;
 	private Double travel_price;
 	

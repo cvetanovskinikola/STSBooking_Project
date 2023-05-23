@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users",uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users",uniqueConstraints = @UniqueConstraint(columnNames = {"email","card_number"}))
 @Getter
 @Setter
 @NoArgsConstructor

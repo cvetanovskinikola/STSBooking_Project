@@ -28,8 +28,8 @@
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Homepage</a>
 				<a class="navbar-brand" th:href="@{/destinations}"> Destinations</a>
-				<a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a>
-				<a class="navbar-brand" th:href="@{user/reservations}">See your reservations</a>
+				<a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"><a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a></a>
+				
 				<a sec:authorize="isAuthenticated()"><a class="navbar-brand" th:href="@{/logout}">Logout</a></a>
 			</div>
 			</div>
@@ -60,8 +60,8 @@
 		<td th:text="${destination.city}"/>
 		<td th:text="${destination.country}"/>
 		<td th:text="${destination.travel_price} + 'Euros'"/>
-		<td th:text="${destination.dateGoing}"/>
-		<td th:text="${destination.dateBack}"/>
+		<td th:text="${#dates.format(destination.dateGoing, 'dd-MM-yyyy')}"/>
+		<td th:text="${#dates.format(destination.dateBack, 'dd-MM-yyyy')}"/>
 	<!--	<td th:text="${destination.hotel.hotel_name}"/>
 		<td th:text="${destination.hotel.hotel_rating}"/>  -->
 		</tr>

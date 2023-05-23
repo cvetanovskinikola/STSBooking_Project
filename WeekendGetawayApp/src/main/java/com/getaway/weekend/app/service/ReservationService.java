@@ -18,6 +18,7 @@ import com.getaway.weekend.app.entity.Destination;
 import com.getaway.weekend.app.entity.Reservation;
 import com.getaway.weekend.app.entity.User;
 import com.getaway.weekend.app.exception.InsufficientFundsException;
+import com.getaway.weekend.app.exception.MoreGuestsNewException;
 import com.getaway.weekend.app.exception.NoRoomsOfYourChoiceLeftException;
 import com.getaway.weekend.app.exception.NoSpotsLeftForDestinationException;
 import com.getaway.weekend.app.exception.RequestException;
@@ -74,55 +75,55 @@ public class ReservationService {
 		else if(rt==4) {
 			res.setFinalPrice(res.getGuests()*dest.getTravel_price()+dest.getHotel().getFamilyPrice());
 		}
-		if(dest.getPassengers()+res.getGuests()>45) {
-			throw new NoSpotsLeftForDestinationException("We are sorry,this destination is fully booked");
+		if(dest.getPassengers()+res.getGuests()>40) {
+			throw new NoSpotsLeftForDestinationException();
 		}
 		if(user.getSufficient_funds()<res.getFinalPrice()) {
-			throw new InsufficientFundsException("We are sorry, we can't make the reservation..Insufficient funds");
+			throw new InsufficientFundsException();
 		}
 		if(res.getGuests()==2) {
 			if(res.getRoomType()==1) {
-				throw new RequestException("Sorry, you can't book a room with less beds than guests");
 				
+				throw new MoreGuestsNewException();
 			}
 		}
 		if(res.getGuests()==3) {
 			if(res.getRoomType()==1 || res.getRoomType()==2) {
-				throw new RequestException("Sorry, you can't book a room with less beds than guests");
+				throw new MoreGuestsNewException();
 			}
 		}
 		if(res.getGuests()>3 && res.getGuests()<6) {
 			if(res.getRoomType()==1 || res.getRoomType()==2 || res.getRoomType()==3) {
-				throw new RequestException("Sorry, you can't book a room with less beds than guests");
+				throw new MoreGuestsNewException();
 			}
 		}
 		if(res.getGuests()>5) {
-			throw new RequestException("Sorry, you can't book a room with less beds than guests");
+			throw new MoreGuestsNewException();
 		}
 		if(res.getRoomType()==1) {
 			if(dest.getHotel().getSinglePersonRoom()==0) {
-				throw new NoRoomsOfYourChoiceLeftException("We are sorry, we have no single rooms left for this destination");
+				throw new NoRoomsOfYourChoiceLeftException();
 			}
 			else dest.getHotel().setSinglePersonRoom(dest.getHotel().getSinglePersonRoom()-1);
 			hr.saveHotel(dest.getHotel());
 		}
 		if(res.getRoomType()==2) {
 			if(dest.getHotel().getTwoPersonRoom()==0) {
-				throw new NoRoomsOfYourChoiceLeftException("We are sorry, we have no two person rooms left for this destination");
+				throw new NoRoomsOfYourChoiceLeftException();
 			}
 			else dest.getHotel().setTwoPersonRoom(dest.getHotel().getTwoPersonRoom()-1);
 			hr.saveHotel(dest.getHotel());
 		}
 		if(res.getRoomType()==3) {
 			if(dest.getHotel().getThreePersonRoom()==0) {
-				throw new NoRoomsOfYourChoiceLeftException("We are sorry, we have no three person rooms left for this destination");
+				throw new NoRoomsOfYourChoiceLeftException();
 			}
 			else dest.getHotel().setThreePersonRoom(dest.getHotel().getThreePersonRoom()-1);
 			hr.saveHotel(dest.getHotel());
 		}
 		if(res.getRoomType()==4) {
 			if(dest.getHotel().getFamilyRoom()==0) {
-				throw new NoRoomsOfYourChoiceLeftException("We are sorry, we have no family rooms left for this destination");
+				throw new NoRoomsOfYourChoiceLeftException();
 			}
 			else dest.getHotel().setFamilyRoom(dest.getHotel().getFamilyRoom()-1);
 			hr.saveHotel(dest.getHotel());
@@ -203,12 +204,12 @@ public class ReservationService {
 		//dateNow = convertToDateViaInstant(dateNow1);
 		
 		if(getDifferenceDays(res.getDestination().getDateGoing(),dateNow)<=7){
-			throw new TimeoutForCancelException("We are sorry, it is too late to cancel your reservation..You are still welcome to attend :)");
+			throw new TimeoutForCancelException();
 		}
 		else if(getDifferenceDays(res.getDestination().getDateGoing(),dateNow)>7){
 			user.removeReservation(res);
 			user.setSufficient_funds(user.getSufficient_funds()+res.getFinalPrice());
-			User admin = usi.getUserById(1l);
+			User admin = usi.getUserById(3l);
 			admin.setSufficient_funds(admin.getSufficient_funds()-res.getFinalPrice());
 			res.getDestination().setPassengers(res.getDestination().getPassengers()-res.getGuests());
 			if(res.getRoomType()==1) {

@@ -1,20 +1,42 @@
 <html xmlns="http://www.thymeleaf.org" lang="en">
 <head>
+	<title>Oops! An error has occurred</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #333;
+			color: white;
+			padding: 20px;
+			text-align: center;
+		}
+		h1 {
+			font-size: 36px;
+			margin: 0;
+		}
+		.container {
+			margin: 20px;
+		}
+		p {
+			font-size: 20px;
+		}
+	</style>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Error!</title>
-<style>
- 	.error-div {
-		margin-top: auto;
-	}
-</style>
 </head>
 <body>
-<div class="error-div"><p style="color: tomato;">Error occured </p >
-   		<p th:text="${error}">
-   		<br>
-   		<p th:text = "${status}"></div >
+<header>
+		<h1>Oops! An error has occurred</h1>
+	</header>
+<div class="container">
+		<p th:text="${error}">
+		<p th:text = "${status}">
+	</div>
+
 
 </body>
 </html>

@@ -28,7 +28,7 @@
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Homepage</a>
 				<a class="navbar-brand" th:href="@{/destinations}"> Destinations</a>
-				<a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a>
+				<a th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"><a class="navbar-brand" th:href="@{/admin/adding}">Add destination</a></a>
 				<a class="navbar-brand" th:href="@{user/reservations}">See your reservations</a>
 				<a sec:authorize="isAuthenticated()"><a class="navbar-brand" th:href="@{/logout}">Logout</a></a>
 			</div>
@@ -57,8 +57,8 @@
 		    <tr th:each="reservation: ${reservations}">
 		        <td th:text="${reservation.destination.country}" />
 		        <td th:text="${reservation.destination.city}" />
-		        <td th:text="${reservation.destination.dateGoing}" />
-		        <td th:text="${reservation.destination.dateBack}" />
+		        <td th:text="${#dates.format(reservation.destination.dateGoing, 'dd-MM-yyyy')}" />
+		        <td th:text="${#dates.format(reservation.destination.dateBack, 'dd-MM-yyyy')}" />
 		        <td th:text="${reservation.destination.hotel.hotel_name}" />
 		        <td th:text="${reservation.guests}" />
 		        <td th:text="${reservation.finalPrice}" />
@@ -77,15 +77,15 @@
 			})
 		</script>
 		<script type="text/javascript">
- function proceed(){
-	var confirmed = confirm("Are you sure you want to cancel the reservation?");
-	 if (confirmed){ 
-		console.log("Called function");
-          return true; }
-       else {
-	console.log("Function cancelled");
-           return false; }
-}
+ // function proceed(){
+	//var confirmed = confirm("Are you sure you want to cancel the reservation?");
+	// if (confirmed){ 
+	//	console.log("Called function");
+     //     return true; }
+    //   else {
+	//console.log("Function cancelled");
+          // return false; }
+//}
  </script >
 </body>
 </html>
